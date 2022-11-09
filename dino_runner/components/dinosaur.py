@@ -48,8 +48,6 @@ class Dinosaur(Sprite):
             self.dino_run = False
 
 
-
-
         if self.step_index >= 10:
             self.step_index = 0
 
