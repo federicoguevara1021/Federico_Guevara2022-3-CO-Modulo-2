@@ -141,11 +141,12 @@ class Game:
         if self.player.has_power_up:
             time_to_show = round((self.player.power_time_up- pygame.time.get_ticks())/1000 ,2)
             if time_to_show >= 0:
-                font = pygame.font.Font(FONT_STYLE, 30)
+                font = pygame.font.Font(FONT_STYLE, 15)
 
-                draw_message=font.render(f"{self.player.type} enable for {time_to_show} seconds",True,(255,0,0))
+                draw_message=font.render(f"{self.player.type} enable for {time_to_show} seconds",True,(0,0,0))
                 draw_message_rect = draw_message.get_rect()
-                draw_message_rect.center = (900 , 200)
+                draw_message_rect.center = (400 , 200)
+                self.screen.blit(draw_message,draw_message_rect)
             else:
                 self.player.has_power_up = False
                 self.player.type = DEFAULT_TYPE
