@@ -22,7 +22,7 @@ class Game:
         self.high_score = 0
         self.player = Dinosaur()
         self.obstacle_manager = ObstacleManager()
-        self.power_up_manager = PowerUpManager
+        self.power_up_manager = PowerUpManager()
         self.running = False
         self.death_count = 0
 
@@ -50,7 +50,7 @@ class Game:
             if event.type == pygame.QUIT:
                 self.playing = False
 
-    def update(self,):
+    def update(self):
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         self.obstacle_manager.update(self)
@@ -138,12 +138,16 @@ class Game:
         self.screen.blit(text,text_rect)
 
     def draw_power_up_time(self):
-        if self.player.has_powe_up:
+        if self.player.has_power_up:
             time_to_show = round((self.player.power_time_up- pygame.time.get_ticks())/1000 ,2)
             if time_to_show >= 0:
-                draw_message=(f"{self.player.type} enable for {time_to_show} seconds", self.screen)
+                font = pygame.font.Font(FONT_STYLE, 30)
+
+                draw_message=font.render(f"{self.player.type} enable for {time_to_show} seconds",True,(255,0,0))
+                draw_message_rect = draw_message.get_rect()
+                draw_message_rect.center = (900 , 200)
             else:
-                self.player.has_powe_up = False
+                self.player.has_power_up = False
                 self.player.type = DEFAULT_TYPE
 
 
@@ -163,7 +167,7 @@ class Game:
 
     def reset(self):
         self.obstacle_manager.reset_obstacles()
-        self.power_up_manager.reset_power_ups(self)
+        self.power_up_manager.reset_power_ups()
         self.score=0
         self.game_speed = 20
         self.playing = True
